@@ -20,7 +20,6 @@ export default class MediaDatabase
 
     createDatabase()
     {
-
         if(!existsSync(this.dbdir+'media_import.db')){
             const createTablesSql = readFileSync(this.dbdir+"media_db.sql", {encoding:'utf8', flag:'r'});
 
@@ -88,6 +87,22 @@ export default class MediaDatabase
                     resolve('ok');
                 }
             })
+        });
+    }
+
+    async getLibrary()
+    {
+        this.db = new this.conn.Database(this.dbdir+'media_import.db', this.conn.OPEN_READWRITE, (err)=>{if(err){console.log}});
+
+        return new Promise((resolve, reject) => {
+            let getLibraryql = 'SELECT * FROM media_instances';
+            this.db.all(getLibraryql, (err, data) => {
+                if(err){
+                    reject(err);
+                }else{
+                    resolve(data);
+                }
+            });
         });
     }
 }

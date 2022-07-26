@@ -1,5 +1,4 @@
- 
-  <div class="card-container">
+   <div class="card-container">
     <Card>
       <Content>Paste JSON file containing media</Content>
       <form method="post" action="/upload" on:submit|preventDefault={handleUpload}>
@@ -80,5 +79,4 @@
         }
       }
     }
-
   </script>

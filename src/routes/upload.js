@@ -1,11 +1,11 @@
 import sqlite3 from "sqlite3";
 import MediaDatabase from "../lib/MediaDatabase";
 
-export async function POST({ request }) {
+export async function POST({request})
+{
   const SQLite3 = sqlite3.verbose();
-  let json = '';
   try {
-    json = await request.json();
+    let json = await request.json();
     let mediaDb = new MediaDatabase(SQLite3);
     mediaDb.createDatabase();
     await mediaDb.insertRecords(json);
@@ -21,5 +21,4 @@ export async function POST({ request }) {
     status: 200,
     body: 'ok'
   };
-
 }
