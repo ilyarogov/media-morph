@@ -1,5 +1,13 @@
    <div class="card-container">
     <Card>
+      <label for="media-sources">Media Source</label>
+      <div class="columns margins" style="justify-content: flex-start;">
+        <select value={selectedMediaSource} id="media-sources">
+          {#each mediaSources as source}
+            <option value={source}>{source}</option>
+          {/each}
+        </select>
+      </div>
       <Content>Paste JSON file containing media</Content>
       <form method="post" action="/upload" on:submit|preventDefault={handleUpload}>
         <textarea cols="80" rows="30" bind:value={mediaJson} on:change={updateMediaJson}></textarea>
@@ -34,7 +42,10 @@
       ActionIcons,
     } from '@smui/card';
     import Button, { Label } from '@smui/button';
-   
+
+    let mediaSources = ['Spotify'];
+    let selectedMediaSource = 'Spotify';
+
     let mediaJson = '';
     let isParsed = false;
     let hasError = false;

@@ -95,7 +95,7 @@ export default class MediaDatabase
         this.db = new this.conn.Database(this.dbdir+'media_import.db', this.conn.OPEN_READWRITE, (err)=>{if(err){console.log}});
 
         return new Promise((resolve, reject) => {
-            let getLibraryql = 'SELECT * FROM media_instances';
+            let getLibraryql = 'SELECT mi.name, a.artist_name, mi.uri FROM media_instances mi INNER JOIN artists a ON mi.artist_id = a.id';
             this.db.all(getLibraryql, (err, data) => {
                 if(err){
                     reject(err);
