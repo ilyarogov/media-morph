@@ -5,8 +5,6 @@ import { existsSync, readFileSync} from 'fs';
 export default class MediaDatabase
 {
     conn;
-    __filename;
-    __dirnamel
     dbdir;
     db;
 
@@ -23,13 +21,11 @@ export default class MediaDatabase
         if(!existsSync(this.dbdir+'media_import.db')){
             const createTablesSql = readFileSync(this.dbdir+"media_db.sql", {encoding:'utf8', flag:'r'});
 
-            this.db = new this.conn.Database(this.dbdir+'media_import.db', this.conn.OPEN_READWRITE | this.conn.OPEN_CREATE, (err) => {
-                if (err) {
-                    console.log("Getting error " + err);
-                }else{
-                    this.db.exec(createTablesSql);
-                }
+            this.db = new this.conn.Database(this.dbdir+'media_import.db', this.conn.OPEN_READWRITE | this.conn.OPEN_CREATE, (err) => {if (err) {console.log("Getting error " + err);}});
+            this,db.serialize(() => {
+                this.db.exec(createTablesSql, (err)=>{console.log(err)});
             });
+            this.db.close();
         }
     }
 

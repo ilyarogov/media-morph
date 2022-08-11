@@ -7,8 +7,8 @@
                 <div>{media.name} - {media.artist_name}</div>
                 <a href="https://music.youtube.com/search?q={media.name+' '+media.artist_name}" target="_blank">Youtube Music</a>
                 <a href="https://open.spotify.com/track/{media.uri.split(':')[2]}" target="_blank">Spotify</a>
-                <a href="https://music.apple.com/us/search?term={media.name+' '+media.artist_name}">Apple Music</a>
-                <a href="https://www.youtube.com/results?search_query={media.name+' '+media.artist_name}">Youtube</a>
+                <a href="https://music.apple.com/us/search?term={media.name+' '+media.artist_name}" target="_blank">Apple Music</a>
+                <a href="https://www.youtube.com/results?search_query={media.name+' '+media.artist_name}" target="_blank">Youtube</a>
             </Card>
         </Cell>
     {/each}

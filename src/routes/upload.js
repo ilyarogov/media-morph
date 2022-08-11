@@ -3,8 +3,8 @@ import MediaDatabase from "../lib/MediaDatabase";
 
 export async function POST({request})
 {
-  const SQLite3 = sqlite3.verbose();
   try {
+    const SQLite3 = sqlite3.verbose();
     let json = await request.json();
     let mediaDb = new MediaDatabase(SQLite3);
     mediaDb.createDatabase();

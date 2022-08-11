@@ -83,7 +83,7 @@
           const res = await fetch('/upload', {
             method: 'POST',
             body: mediaJson
-          })
+          });
         }catch(err){
           hasError = true;
           isParsed = false;
