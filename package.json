@@ -10,6 +10,7 @@
 		"smui-theme": "smui-theme compile static/smui.css -i src/theme"
 	},
 	"devDependencies": {
+		"@material/typography": "^13.0.0",
 		"@smui/button": "^6.0.0-beta.16",
 		"@smui/card": "^6.0.0-beta.16",
 		"@smui/common": "^6.0.0-beta.16",

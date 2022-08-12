@@ -1,5 +1,5 @@
    <div class="card-container">
-    <Card>
+    <Card padded>
       <label for="media-sources">Media Source</label>
       <div class="columns margins" style="justify-content: flex-start;">
         <select value={selectedMediaSource} id="media-sources">

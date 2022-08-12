@@ -22,7 +22,7 @@ export default class MediaDatabase
             const createTablesSql = readFileSync(this.dbdir+"media_db.sql", {encoding:'utf8', flag:'r'});
 
             this.db = new this.conn.Database(this.dbdir+'media_import.db', this.conn.OPEN_READWRITE | this.conn.OPEN_CREATE, (err) => {if (err) {console.log("Getting error " + err);}});
-            this,db.serialize(() => {
+            this.db.serialize(() => {
                 this.db.exec(createTablesSql, (err)=>{console.log(err)});
             });
             this.db.close();
@@ -33,7 +33,9 @@ export default class MediaDatabase
     {
         this.db = new this.conn.Database(this.dbdir+'media_import.db', this.conn.OPEN_READWRITE, (err)=>{if(err){console.log}});
         let tracks = json.tracks;
-
+        this.db.serialize(() => {
+            this.db.exec('DELETE FROM media_instances', (err)=>{console.log(err)});
+        });
         tracks.forEach(async (row, idx)=>{
             let artistId = await this.getArtist(row.artist);
             await this.insertInstance(artistId, row);
