@@ -1,6 +1,6 @@
 # Media Morph
 
-This is a SvelteKit-based web application that's meant to be locally hosted. Although I am planning on hosting it myself once I figure out which adapter to use.
+This is a media library import tool that's a SvelteKit-based web application. It's meant to be locally hosted, although I am planning on hosting it myself once I figure out which adapter to use.
 
 ## Motivation
 
