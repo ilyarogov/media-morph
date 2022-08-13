@@ -1,38 +1,11 @@
-# create-svelte
+# Media Morph
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+This is a SvelteKit-based web application that's meant to be locally hosted. Although I am planning on hosting it myself once I figure out which adapter to use.
 
-## Creating a project
+## Motivation
 
-If you're seeing this, you've probably already done this step. Congrats!
+I decided to unsubscribe from Spotify Premium and use YouTube Music instead. However, there's no easy way to import your library from one service to another. Spotify does provide an API but YouTube Music does not.
 
-```bash
-# create a new project in the current directory
-npm init svelte
+Luckily Spotify lets you export your data including your playlists via a zip archive that contains several JSON files. These are easy to parse and you can extract the artists and songs from them.
 
-# create a new project in my-app
-npm init svelte my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+This app lets you take this JSON file and create a database containing all the artist and songs on your playlists and then display then in as a list with links to other music/media services. So far I include Spotify, YouTube Music, YouTube and Apple Music.
