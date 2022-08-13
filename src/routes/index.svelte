@@ -2,7 +2,7 @@
     <Card padded>
       <label for="media-sources">Media Source</label>
       <div class="columns margins" style="justify-content: flex-start;">
-        <select value={selectedMediaSource} id="media-sources">
+        <select bind:value={selectedMediaSource} id="media-sources" on:change="{handleMediaSourceChange}">
           {#each mediaSources as source}
             <option value={source}>{source}</option>
           {/each}
@@ -31,6 +31,12 @@
         </Actions>
       </form>
     </Card>
+    <Snackbar bind:this={snackbarWithClose}>
+      <Label>{snackBarMessage}</Label>
+      <Actions>
+        <IconButton class="material-icons" title="Dismiss">close</IconButton>
+      </Actions>
+    </Snackbar>
   </div>
 
   <script>
@@ -41,9 +47,11 @@
       ActionButtons,
       ActionIcons,
     } from '@smui/card';
-    import Button, { Label } from '@smui/button';
+    import Button, {Label } from '@smui/button';
+    import IconButton from '@smui/icon-button';
+    import Snackbar from '@smui/snackbar';
 
-    let mediaSources = ['Spotify'];
+    let mediaSources = ['Spotify','Apple'];
     let selectedMediaSource = 'Spotify';
 
     let mediaJson = '';
@@ -51,8 +59,19 @@
     let hasError = false;
     let tracks = 0;
 
+    let snackbarWithClose;
+    let snackBarMessage = '';
+
     if(mediaJson.length > 0) {
       isParsed = true;
+    }
+
+    function handleMediaSourceChange()
+    {
+        if(selectedMediaSource !== 'Spotify'){
+            snackBarMessage = selectedMediaSource+' media source is not yes supported';
+            snackbarWithClose.open();
+        }
     }
 
     function updateMediaJson()
@@ -66,7 +85,6 @@
         hasError = true;
         isParsed = false;
       }
-
     }
 
     function handleReset()
@@ -84,9 +102,15 @@
             method: 'POST',
             body: mediaJson
           });
+          if(res.ok){
+            snackBarMessage = "Upload succeeded";
+            snackbarWithClose.open();
+          }
         }catch(err){
           hasError = true;
           isParsed = false;
+          snackBarMessage = "An error occurred. Please try again."
+          snackbarWithClose.open();
         }
       }
     }

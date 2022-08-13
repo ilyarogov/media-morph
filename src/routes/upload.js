@@ -10,7 +10,6 @@ export async function POST({request})
     mediaDb.createDatabase();
     await mediaDb.insertRecords(json);
   } catch (err) {
-    console.log(err);
     return {
       status: 500,
       body: 'error'
