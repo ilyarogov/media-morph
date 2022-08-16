@@ -1,7 +1,9 @@
-<div>Your media library</div>          
-<Button on:click={handleShuffle}>
-    <Label>Shuffle</Label>
-  </Button>
+{#if !mediaList}
+    <h5 class="center">Your media library is empty</h5>
+{/if}
+<div class="center">
+    <Button on:click={handleShuffle}><Label>Shuffle</Label></Button>
+</div>
 
 <div class="card-container">
     <LayoutGrid>

@@ -20,22 +20,17 @@
           <div>JSON is invalid</div>
         {/if}
         <Actions>
-          {#if isParsed}
-            <Button>
-              <Label>Upload</Label>
-            </Button>
-          {/if}
+          <Button>
+            <Label>Upload</Label>
+          </Button>
           <Button on:click={handleReset}>
             <Label>Reset</Label>
           </Button>
         </Actions>
       </form>
     </Card>
-    <Snackbar bind:this={snackbarWithClose}>
+    <Snackbar bind:this={snackbar}>
       <Label>{snackBarMessage}</Label>
-      <Actions>
-        <IconButton class="material-icons" title="Dismiss">close</IconButton>
-      </Actions>
     </Snackbar>
   </div>
 
@@ -59,7 +54,7 @@
     let hasError = false;
     let tracks = 0;
 
-    let snackbarWithClose;
+    let snackbar;
     let snackBarMessage = '';
 
     if(mediaJson.length > 0) {
@@ -70,7 +65,7 @@
     {
         if(selectedMediaSource !== 'Spotify'){
             snackBarMessage = selectedMediaSource+' media source is not yes supported';
-            snackbarWithClose.open();
+            snackbar.open();
         }
     }
 
@@ -104,14 +99,17 @@
           });
           if(res.ok){
             snackBarMessage = "Upload succeeded";
-            snackbarWithClose.open();
+            snackbar.open();
           }
         }catch(err){
           hasError = true;
           isParsed = false;
           snackBarMessage = "An error occurred. Please try again."
-          snackbarWithClose.open();
+          snackbar.open();
         }
+      }else{
+        snackBarMessage = 'Please enter you media data';
+        snackbar.open();
       }
     }
   </script>

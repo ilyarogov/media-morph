@@ -8,7 +8,9 @@ export async function POST({request})
     let json = await request.json();
     let mediaDb = new MediaDatabase(SQLite3);
     mediaDb.createDatabase();
-    await mediaDb.insertRecords(json);
+    if(json.ok){
+      await mediaDb.insertRecords(json);
+    }
   } catch (err) {
     return {
       status: 500,
