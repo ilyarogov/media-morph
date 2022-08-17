@@ -13,7 +13,7 @@
           <Button on:click={() => (openDelete = false)}>
             <Label>No</Label>
           </Button>
-          <Button on:click={() => (handleDeleteConfirm())}>
+          <Button>
             <Label>Yes</Label>
           </Button>
         </Actions>
@@ -23,7 +23,7 @@
     <LayoutGrid>
         {#each shuffle(mediaList) as media}
             <Cell>
-                <LinkList media={media}/>
+                <LinkList bind:media/>
             </Cell>
         {/each}
     </LayoutGrid>
@@ -48,12 +48,8 @@
         return array.sort(() => Math.random() - 0.5);
     }
 
-    function handleDeleteConfirm()
-    {
-        
-    }
-
 </script>
+
 <script context="module">
     export async function load({fetch}) 
     {
