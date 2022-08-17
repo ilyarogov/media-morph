@@ -37,13 +37,9 @@
   <script>
     import Card, {
       Content,
-      PrimaryAction,
       Actions,
-      ActionButtons,
-      ActionIcons,
     } from '@smui/card';
     import Button, {Label } from '@smui/button';
-    import IconButton from '@smui/icon-button';
     import Snackbar from '@smui/snackbar';
 
     let mediaSources = ['Spotify','Apple'];
@@ -100,16 +96,23 @@
           if(res.ok){
             snackBarMessage = "Upload succeeded";
             snackbar.open();
+          }else{
+            showError();
           }
         }catch(err){
-          hasError = true;
-          isParsed = false;
-          snackBarMessage = "An error occurred. Please try again."
-          snackbar.open();
+            showError();
         }
       }else{
         snackBarMessage = 'Please enter you media data';
         snackbar.open();
       }
+    }
+
+    function showError()
+    {
+      hasError = true;
+      isParsed = false;
+      snackBarMessage = "An error occurred. Please try again."
+      snackbar.open();
     }
   </script>

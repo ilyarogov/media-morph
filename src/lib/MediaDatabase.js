@@ -18,27 +18,28 @@ export default class MediaDatabase
 
     createDatabase()
     {
-        if(!existsSync(this.dbdir+'media_import.db')){
-            const createTablesSql = readFileSync(this.dbdir+"media_db.sql", {encoding:'utf8', flag:'r'});
-
+        if(!this.checkDbExists()){
             this.db = new this.conn.Database(this.dbdir+'media_import.db', this.conn.OPEN_READWRITE | this.conn.OPEN_CREATE, (err) => {if (err) {console.log("Getting error " + err);}});
-            this.db.serialize(() => {
-                this.db.exec(createTablesSql, (err)=>{console.log(err)});
-            });
-            this.db.close();
         }
+    }
+
+    checkDbExists()
+    {
+        return existsSync(this.dbdir+'media_import.db');
     }
 
     async insertRecords(json)
     {
-        this.db = new this.conn.Database(this.dbdir+'media_import.db', this.conn.OPEN_READWRITE, (err)=>{if(err){console.log}});
         let tracks = json.tracks;
+        const createTablesSql = readFileSync(this.dbdir+"media_db.sql", {encoding:'utf8', flag:'r'});
         this.db.serialize(() => {
+            this.db.exec(createTablesSql, (err)=>{console.log(err)});
+            console.log('here');
             this.db.exec('DELETE FROM media_instances', (err)=>{console.log(err)});
-        });
-        tracks.forEach(async (row, idx)=>{
-            let artistId = await this.getArtist(row.artist);
-            await this.insertInstance(artistId, row);
+            tracks.forEach(async (row, idx)=>{
+                let artistId = await this.getArtist(row.artist);
+                await this.insertInstance(artistId, row);
+            });
         });
     }
 
@@ -91,7 +92,6 @@ export default class MediaDatabase
     async getLibrary()
     {
         this.db = new this.conn.Database(this.dbdir+'media_import.db', this.conn.OPEN_READWRITE, (err)=>{if(err){console.log}});
-
         return new Promise((resolve, reject) => {
             let getLibraryql = 'SELECT mi.name, a.artist_name, mi.uri FROM media_instances mi INNER JOIN artists a ON mi.artist_id = a.id';
             this.db.all(getLibraryql, (err, data) => {
