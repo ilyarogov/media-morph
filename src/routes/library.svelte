@@ -3,17 +3,17 @@
 {:else}
     <div class="center">
         <Button on:click={handleShuffle}><Label>Shuffle</Label></Button>
-        <Button on:click={() => (openDelete = true)}><Label>Delete Library</Label></Button>
+        <Button on:click={() => (open = true)}><Label>Delete Library</Label></Button>
     </div>  
-    <Dialog bind:openDelete>
+    <Dialog bind:open>
         <!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
         <Title id="simple-title">Delete Media Library</Title>
         <Content id="simple-content">Are you sure you want to delete your entire library?</Content>
         <Actions>
-          <Button on:click={() => (openDelete = false)}>
+          <Button on:click={() => (open = false)}>
             <Label>No</Label>
           </Button>
-          <Button>
+          <Button on:click={handleLibraryDelete()}>
             <Label>Yes</Label>
           </Button>
         </Actions>
@@ -23,7 +23,7 @@
     <LayoutGrid>
         {#each shuffle(mediaList) as media}
             <Cell>
-                <LinkList bind:media/>
+                <LinkList media={media}/>
             </Cell>
         {/each}
     </LayoutGrid>
@@ -36,11 +36,16 @@
 
     export let mediaList;
 
-    let openDelete = false;
+    let open = false;
 
     function handleShuffle()
     {
         mediaList = shuffle(mediaList);
+    }
+
+    function handleLibraryDelete()
+    {
+        
     }
 
     function shuffle(array) 
