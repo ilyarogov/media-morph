@@ -13,7 +13,7 @@
           <Button on:click={() => (open = false)}>
             <Label>No</Label>
           </Button>
-          <Button on:click={handleLibraryDelete()}>
+          <Button on:click$stopPropagation={handleLibraryDelete()}>
             <Label>Yes</Label>
           </Button>
         </Actions>
@@ -43,9 +43,8 @@
         mediaList = shuffle(mediaList);
     }
 
-    function handleLibraryDelete()
+    function handleLibraryDelete(event)
     {
-        
     }
 
     function shuffle(array) 
